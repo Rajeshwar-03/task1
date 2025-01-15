@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card with Factorial Calculator</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Product card styling */
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .product-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 1.5em;
+            margin: 16px 0 8px;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.2em;
+            color: #e67e22;
+            margin: 8px 0;
+        }
+
+        .product-description {
+            font-size: 0.9em;
+            color: #666;
+            margin: 8px 0;
+        }
+
+        .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .add-to-cart:hover {
+            background-color: #218838;
+        }
+
+        /* Factorial calculator section styling */
+        .factorial-section {
+            margin-top: 20px;
+        }
+
+        .factorial-section input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .factorial-section button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .factorial-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .factorial-result {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            .product-card {
+                max-width: 100%;
+                margin: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Product card -->
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300" alt="Product Image" class="product-image">
+        <h2 class="product-name">Factorial Calculator</h2>
+        <p class="product-price">$100</p>
+        <p class="product-description">This calculates the factorial of a number in recursive and iterative methods.</p>
+        <button class="add-to-cart">Add to Cart</button>
+
+        <!-- Factorial calculator section -->
+        <div class="factorial-section">
+            <h3>Factorial Calculator</h3>
+            <input type="number" id="factorialInput" placeholder="Enter a positive integer" min="0">
+            <button onclick="calculateFactorial('iterative')">Calculate Iterative</button>
+            <button onclick="calculateFactorial('recursive')">Calculate Recursive</button>
+            <div class="factorial-result" id="factorialResult"></div> 
+            <!-- Result will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate factorial based on the selected method
+        function calculateFactorial(method) {
+            const input = document.getElementById('factorialInput').value;
+            const resultDisplay = document.getElementById('factorialResult');
+            const number = parseInt(input);
+
+            // Validate input
+            if (isNaN(number) || number < 0) {
+                resultDisplay.innerHTML = "Please enter a valid positive integer.";
+                return;
+            }
+
+            let result;
+            // Calculate factorial using the selected method
+            if (method === 'iterative') {
+                result = factorialIterative(number);
+                resultDisplay.innerHTML = `Factorial of ${number} (Iterative): ${result}`;
+            } else {
+                result = factorialRecursive(number);
+                resultDisplay.innerHTML = `Factorial of ${number} (Recursive): ${result}`;
+            }
+        }
+
+        // Iterative factorial calculation
+        function factorialIterative(n) {
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        // Recursive factorial calculation
+        function factorialRecursive(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            }
+            return n * factorialRecursive(n - 1);
+        }
+    </script>
+</body>
+</html>
